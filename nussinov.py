@@ -30,7 +30,7 @@ def nussinov_table(seq, gamma, ell=0):
     ans = table[0][-1]
     return ans, table
 
-def reconstruction(seq, table, ell=0):
+def reconstruction(seq, table, gamma, ell=0):
     n = len(seq)
     stack = [(0,n-1)]
     record = []
@@ -59,16 +59,18 @@ def reconstruction(seq, table, ell=0):
         representation[j] = ')'
     return ''.join(representation)
 
-def reconstruction_helper(i, j, table, ell=0):
+def reconstruction_helper(seq, i, j, table, gamma, ell=0):
+    if i == 0 and j == 2:
+        pdb.set_trace()
     solutions = []
     if i + ell >= j:
         return solutions
     if table[i+1][j] == table[i][j]:
-        solutions += reconstruction_helper(i+1, j, table, ell)
+        solutions += reconstruction_helper(seq, i+1, j, table, gamma, ell)
     if table[i][j-1] == table[i][j]:
-        solutions += reconstruction_helper(i, j-1, table, ell)
-    if table[i+1][j-1] + 1 == table[i][j]:
-        prev_sols = reconstruction_helper(i+1, j-1, table, ell)
+        solutions += reconstruction_helper(seq, i, j-1, table, gamma, ell)
+    if table[i+1][j-1] + 1 == table[i][j] and (seq[i], seq[j]) in gamma:
+        prev_sols = reconstruction_helper(seq, i+1, j-1, table, gamma, ell)
         if len(prev_sols) == 0:
             prev_sols = [[(i, j)]]
         else:
@@ -76,8 +78,8 @@ def reconstruction_helper(i, j, table, ell=0):
         solutions += prev_sols
     for k in range(i+1+ell, j):
         if table[i][k] + table[k+1][j] == table[i][j]:
-            left_sols = reconstruction_helper(i, k, table, ell)
-            right_sols = reconstruction_helper(k+1, j, table, ell)
+            left_sols = reconstruction_helper(seq, i, k, table, gamma, ell)
+            right_sols = reconstruction_helper(seq, k+1, j, table, gamma, ell)
             combined_sols = []
             for lsol in left_sols:
                 for rsol in right_sols:
@@ -87,8 +89,8 @@ def reconstruction_helper(i, j, table, ell=0):
             solutions += combined_sols
     return solutions
 
-def reconstruction_all(seq, table, ell=0):
-    all_sols = reconstruction_helper(0, len(seq)-1, table, ell=ell)
+def reconstruction_all(seq, table, gamma, ell=0):
+    all_sols = reconstruction_helper(seq, 0, len(seq)-1, table, gamma, ell=ell)
     reps = []
     for record in all_sols:
         representation = ['.' for w in seq]
@@ -104,15 +106,15 @@ if __name__ == "__main__":
     GAMMA = set([('A', 'U'), ('U', 'A'), ('C', 'G'), ('G', 'C'), ('G', 'U'), ('U', 'G')])
     #  string = 'GCAGCAUUCG'
     #  string = 'AUAU'
-    string = 'GCACUGU'
-    ell = 0
+    string = 'GGUCCAC'
+    ell = 1
     ans, table = nussinov_table(string, GAMMA, ell)
     print(ans)
     print(table)
     #  ds_format = reconstruction(string, table, ell)
     #  print(string)
     #  print(ds_format)
-    reps = reconstruction_all(string, table, ell=ell)
+    reps = reconstruction_all(string, table, GAMMA, ell=ell)
     print('Found {} solutions'.format(len(reps)))
     for rep in reps:
         print(rep)
