@@ -53,11 +53,13 @@ def reconstruction(seq, table, gamma, ell=0):
                     stack.append((i, k))
                     break
 
-    representation = ['.' for w in seq]
-    for (i, j) in record:
-        representation[i] = '('
-        representation[j] = ')'
-    return ''.join(representation)
+    return record
+
+    #  representation = ['.' for w in seq]
+    #  for (i, j) in record:
+    #      representation[i] = '('
+    #      representation[j] = ')'
+    #  return ''.join(representation)
 
 def reconstruction_helper(seq, i, j, table, gamma, ell=0):
     if i == 0 and j == 2:
@@ -219,9 +221,13 @@ if __name__ == "__main__":
     ans, table = nussinov_table(string, GAMMA, ell)
     print(ans)
     print(table)
-    #  ds_format = reconstruction(string, table, ell)
-    #  print(string)
-    #  print(ds_format)
+
+    ## single solution
+    record = reconstruction(string, table, ell)
+    pdb.set_trace()
+    print(to_dot_bracket(string, record))
+
+    ## enumerate solutions
     all_solns = reconstruction_all(string, table, GAMMA, ell=ell)
     print('Found {} solutions'.format(len(all_solns)))
     for record in all_solns:
