@@ -62,8 +62,6 @@ def reconstruction(seq, table, gamma, ell=0):
     #  return ''.join(representation)
 
 def reconstruction_helper(seq, i, j, table, gamma, ell=0):
-    if i == 0 and j == 2:
-        pdb.set_trace()
     solutions = []
     if i + ell >= j:
         return solutions

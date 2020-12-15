@@ -1,4 +1,4 @@
-import os, datetime
+import os, datetime, argparse
 from nussinov import *
 import pdb
 
@@ -96,12 +96,19 @@ def visualize_reconstruction(seq, table, record, ell=0, output_name='out.png'):
 
 if __name__ == '__main__':
     # read input
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--input', '-i', type=str,
+                        required=True,
+                        help='Input string'
+                       )
+    args = parser.parse_args()
+    string = args.input
     from vis_config import PARAMS as param
     GAMMA = set([])
     for (a, b) in param['pairing']:
         GAMMA.add((a, b))
         GAMMA.add((b, a))
-    string = param['input']
+    #  string = param['input']
     print('Input: {}'.format(string))
     ell = param['hairpin']
     # setup output
