@@ -3,6 +3,12 @@ from nussinov import *
 import pdb
 
 def visualize_reconstruction(seq, table, record, ell=0, output_name='out.png'):
+    '''
+        Creating backtrace from the given DP table and reconstruction
+
+        Reference for plotting:
+            https://matplotlib.org/3.1.1/gallery/images_contours_and_fields/image_annotated_heatmap.html
+    '''
     import matplotlib
     import matplotlib.pyplot as plt
     import numpy as np
@@ -108,7 +114,6 @@ if __name__ == '__main__':
     for (a, b) in param['pairing']:
         GAMMA.add((a, b))
         GAMMA.add((b, a))
-    #  string = param['input']
     print('Input: {}'.format(string))
     ell = param['hairpin']
     # setup output

@@ -1,7 +1,7 @@
 PARAMS = {
-    'pairing': [('A', 'U'), ('C', 'G'), ('G', 'U')],
-    'hairpin': 2,
-    'max_num_soln': None,
+    'pairing': [('A', 'U'), ('C', 'G'), ('G', 'U')], # adding G-U pairs for consistency with the online tool
+    'hairpin': 0,
+    'max_num_soln': 15,
     'output_dir': './output/'
 }
 
