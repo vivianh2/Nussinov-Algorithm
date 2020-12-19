@@ -23,8 +23,10 @@ Then, run
 python visualize_main.py -- input <INPUT_STRING>
 ```
 
-The command generates one plot of the backtrace for each reconstruction of the input string.
+The command generates one plot of the backtrace for each reconstruction of the input string. We provide the output for the sequence `GGUCCAC` with allowed pairings of A-U, C-G, and G-U, and the minimum length of hairpin loop is set to 1 according to the example in [the Freiburg RNA Tool](http://rna.informatik.uni-freiburg.de/Teaching/index.jsp?toolName=Nussinov).
 
+The algorithm finds 5 solutions with a score of 2:
+![traceback_((.))...png](./output/GGUCCAC_A-U_C-G_G-U_hairpin_1/traceback_((.))...png)
 
 ## Running Test Suites
 TODO
