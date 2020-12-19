@@ -27,6 +27,12 @@ The command generates one plot of the backtrace for each reconstruction of the i
 
 The algorithm finds 5 solutions with a score of 2:
 ![traceback_((.))...png](./output/GGUCCAC_A-U_C-G_G-U_hairpin_1/traceback_((.))...png)
+![traceback_((..).).png](./output/GGUCCAC_A-U_C-G_G-U_hairpin_1/traceback_((..).).png)
+![traceback_.((..)).png](./output/GGUCCAC_A-U_C-G_G-U_hairpin_1/traceback_.((..)).png)
+![traceback_((.)..).png](./output/GGUCCAC_A-U_C-G_G-U_hairpin_1/traceback_((.)..).png)
+![traceback_(.(..)).png](./output/GGUCCAC_A-U_C-G_G-U_hairpin_1/traceback_(.(..)).png)
+
+which is consistent with the reference demo.
 
 ## Running Test Suites
 TODO
